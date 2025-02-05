@@ -1,0 +1,15 @@
+# docker-compose
+services:
+  go:
+    image: golang:1.23
+    working_dir: /go/src
+    volumes:
+      - ./datas/go:/data
+    command: /bin/sh
+    tty: true
+    networks:
+      - go-net
+
+networks:
+  go-net:
+    driver: bridge

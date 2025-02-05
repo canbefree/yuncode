@@ -1,0 +1,37 @@
+services:
+  openwrt_z4:
+    image: kangkang223/openwrt:z4
+    environment:
+      - LAN_ADDR=192.168.31.9
+      - LAN_GATEWAY=192.168.31.5
+      - LAN_DNS=192.168.31.5
+      - DNS_MASQ_SERVER=127.0.0.1
+      - TZ=Asia/Shanghai
+    container_name: openwrt_z4
+    restart: always
+    # privileged: true
+    tty: true
+    command: /sbin/init
+    volumes:
+      - ./openwrt:/etc/config
+      - ./openwrt/overlay:/overlay
+      - ./openwrt/custom:/custom
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+      - SYS_NICE
+      - SYS_RAWIO
+      - SYS_RESOURCE
+      - SYS_TIME
+    networks:
+      - macnet
+
+networks:
+  macnet:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 192.168.31.0/24
+          gateway: 192.168.31.5

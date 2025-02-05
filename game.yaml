@@ -1,0 +1,16 @@
+version: '3'
+services:
+  steamcmd:
+    image: cm2network/steamcmd
+    container_name: steamcmd
+    # command: ./steamcmd.sh +force_install_dir /home/steam/steamcmd/dst +login anonymous +app_update 343050 validate +quit
+    volumes:
+      - steamcmd_login_volume:/home/steam/Steam
+      - steamcmd_volume:/home/steam/steamcmd
+      - ~/.dst-server:/home/steam/steamcmd/dst
+
+volumes:
+  steamcmd_login_volume:
+  steamcmd_volume:
+
+

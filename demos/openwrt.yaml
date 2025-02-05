@@ -1,0 +1,23 @@
+services:
+  openwrt:
+    image: sulinggg/openwrt:x86_64
+    container_name: openwrt
+    restart: always
+    # privileged: true
+    tty: true
+    command: /sbin/init
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./openwrt:/etc/config
+      - ./openwrt/overlay:/overlay
+      - ./openwrt/custom:/custom
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+      - SYS_NICE
+      - SYS_RAWIO
+      - SYS_RESOURCE
+      - SYS_TIME
+    network_mode: "host"
+  

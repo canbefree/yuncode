@@ -1,0 +1,28 @@
+# Distribute System Infrastructure
+services:
+  etcd:
+    image: bitnami/etcd:3.5
+    container_name: etcd
+    ports:
+      - 2379:2379
+      - 2380:2380
+    volumes:
+      - ./etcd/data:/bitnami/etcd-data
+    environment:
+      - TZ=Asia/Shanghai
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+    networks:
+      dsi:
+
+  kafka-graalvm:
+    image: apache/kafka-native:3.9.0
+    container_name: kafka-graalvm
+    ports:
+      - "9092:9092"
+    networks:
+      dsi:
+  
+networks:
+  dsi:
+    driver: bridge
