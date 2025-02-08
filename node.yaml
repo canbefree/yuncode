@@ -1,0 +1,19 @@
+services:
+  node:
+    build:
+      context: .
+      dockerfile: ./configs/node/default.Dockerfile 
+    volumes:
+      - ./datas/node:/app
+    # command: sh -c "yarn install && yarn run dev"
+    command: sleep infinity
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - node
+
+networks:
+  node:
+    driver: bridge

@@ -18,6 +18,7 @@ services:
     image: nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./configs/php/nginx/nginx-php.conf:/etc/nginx/conf.d/default.conf
       - ./configs/php/nginx/cert:/etc/nginx/cert

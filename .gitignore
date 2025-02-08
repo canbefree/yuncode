@@ -1,1 +1,4 @@
 configs/php/nginx/cert/*
+!configs/php/nginx/cert/README.md
+**/node_modules
+**/yarn.lock
