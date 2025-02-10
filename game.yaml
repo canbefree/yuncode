@@ -7,10 +7,25 @@ services:
     volumes:
       - steamcmd_login_volume:/home/steam/Steam
       - steamcmd_volume:/home/steam/steamcmd
-      - ~/.dst-server:/home/steam/steamcmd/dst
 
+  pal:
+    image: cm2network/steamcmd
+    container_name: pal
+    command: "/home/steam/steamcmd/palworld_server/PalServer.sh -publiclobby"
+    volumes:
+      - steamcmd_login_volume:/home/steam/Steam
+      - steamcmd_volume:/home/steam/steamcmd
+    ports:
+      - "8211:8211"
+      - "25575:25575"
+    networks:
+      - game-net
+      
 volumes:
   steamcmd_login_volume:
   steamcmd_volume:
 
 
+networks:
+  game-net:
+    driver: bridge
