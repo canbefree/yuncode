@@ -1,4 +1,3 @@
-version: '3'
 services:
   steamcmd:
     image: cm2network/steamcmd
@@ -8,6 +7,23 @@ services:
       - steamcmd_login_volume:/home/steam/Steam
       - steamcmd_volume:/home/steam/steamcmd
 
+  dst:
+    build:
+      context: .
+      # dockerfile: ./configs/game/dst.Dockerfile
+      dockerfile: ./configs/game/dst.default.Dockerfile
+    container_name: dst
+    command: /bin/bash -c /home/steam/.klei/script/start_dst.sh
+    volumes:
+      - steamcmd_login_volume:/home/steam/Steam
+      - steamcmd_volume:/home/steam/steamcmd
+      - ~/.klei:/home/steam/.klei
+    ports:
+      - "10888:10888/tcp"  # 游戏通信端口
+      - "10999:10999/tcp"  # 查询端口
+    networks:
+      - game-net
+
   pal:
     image: cm2network/steamcmd
     container_name: pal
@@ -16,7 +32,7 @@ services:
       - steamcmd_login_volume:/home/steam/Steam
       - steamcmd_volume:/home/steam/steamcmd
     ports:
-      - "8211:8211"
+      - "8211:8211/udp"
       - "25575:25575"
     networks:
       - game-net
