@@ -36,6 +36,16 @@ services:
       - "25575:25575"
     networks:
       - game-net
+  edit:
+    build:
+      context: .
+      dockerfile: ./configs/game/edit.Dockerfile
+    container_name: edit
+    volumes:
+      - steamcmd_login_volume:/home/steam/Steam
+      - steamcmd_volume:/home/steam/steamcmd
+    networks:
+      - game-net
       
 volumes:
   steamcmd_login_volume:
