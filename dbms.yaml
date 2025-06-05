@@ -8,6 +8,7 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+      - ./configs/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     restart: always
     networks:
       - app-net
