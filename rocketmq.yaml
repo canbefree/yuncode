@@ -1,0 +1,28 @@
+
+version: '3.8'
+services:
+  rocketmq-nameserver:
+    image: apache/rocketmq:5.1.4
+    container_name: rocketmq-nameserver
+    command: sh mqnamesrv
+    ports:
+      - "9876:9876"
+    networks:
+      - dsi
+
+  rocketmq-broker:
+    image: apache/rocketmq:5.1.4
+    container_name: rocketmq-broker
+    command: sh mqbroker -n rocketmq-nameserver:9876 --enable-proxy
+    ports:
+      - "10911:10911"
+    environment:
+      - JAVA_OPT=-Xms1g -Xmx1g -Xmn512m
+    depends_on:
+      - rocketmq-nameserver
+    networks:
+      - dsi
+
+networks:
+  dsi:
+    driver: bridge
